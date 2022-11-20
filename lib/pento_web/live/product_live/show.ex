@@ -5,7 +5,7 @@ defmodule PentoWeb.ProductLive.Show do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, assign(socket, :greeting, "Welcome to Pento!")}
   end
 
   @impl true
