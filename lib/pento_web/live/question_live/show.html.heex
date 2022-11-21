@@ -25,6 +25,12 @@
     <%= @question.upvote %>
   </li>
 
+    <li>
+    <strong>Answer:</strong>
+    <%= @question.answer %>
+  </li>
+
+
 </ul>
 
 <span><%= live_patch "Edit", to: Routes.question_show_path(@socket, :edit, @question), class: "button" %></span> |
