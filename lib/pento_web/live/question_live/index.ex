@@ -20,6 +20,12 @@ defmodule PentoWeb.QuestionLive.Index do
     |> assign(:question, FAQ.get_question!(id))
   end
 
+  defp apply_action(socket, :answer, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Answer Question")
+    |> assign(:question, FAQ.get_question!(id))
+  end
+
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Question")
@@ -37,6 +43,20 @@ defmodule PentoWeb.QuestionLive.Index do
     question = FAQ.get_question!(id)
     {:ok, _} = FAQ.delete_question(question)
 
+    {:noreply, assign(socket, :question_collection, list_question())}
+  end
+
+  @impl true
+  def handle_event("up_vote", %{"id" => id}, socket) do
+    question = FAQ.get_question!(id)
+    {:ok, _} = FAQ.upvote_question(question, %{:upvote => question.upvote + 1})
+    {:noreply, assign(socket, :question_collection, list_question())}
+  end
+
+  @impl true
+  def handle_event("down_vote", %{"id" => id}, socket) do
+    question = FAQ.get_question!(id)
+    {:ok, _} = FAQ.downvote_question(question, %{:upvote => question.upvote - 1})
     {:noreply, assign(socket, :question_collection, list_question())}
   end
 

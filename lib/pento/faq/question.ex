@@ -17,19 +17,19 @@ defmodule Pento.FAQ.Question do
     |> validate_required([:content, :upvote, :answer])
   end
 
-  def upvoteChangeset(question, attrs) do
+  def upvote_changeset(question, attrs) do
     question
     |> cast(attrs, [:upvote])
     |> validate_number(:upvote, greater_than: question.upvote)
   end
 
-  def downvoteChangeset(question, attrs) do
+  def downvote_changeset(question, attrs) do
     question
     |> cast(attrs, [:upvote])
     |> validate_number(:upvote, less_than: question.upvote)
   end
 
-  def answerQuestionChangeset(question, attrs) do
+  def answer_question_changeset(question, attrs) do
     question
     |> cast(attrs, [:answer])
     |> validate_required([:answer])

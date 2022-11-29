@@ -13,6 +13,19 @@
   </.modal>
 <% end %>
 
+<%= if @live_action in [:answer] do %>
+  <.modal return_to={Routes.question_index_path(@socket, :index)}>
+    <.live_component
+      module={PentoWeb.QuestionLive.AnswerFormComponent}
+      id={@question.id}
+      title={@page_title}
+      action={@live_action}
+      question={@question}
+      return_to={Routes.question_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
 <table>
   <thead>
     <tr>
@@ -33,6 +46,9 @@
           <span><%= live_redirect "Show", to: Routes.question_show_path(@socket, :show, question) %></span>
           <span><%= live_patch "Edit", to: Routes.question_index_path(@socket, :edit, question) %></span>
           <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: question.id, data: [confirm: "Are you sure?"] %></span>
+          <span><%= link "Up Vote", to: "#", phx_click: "up_vote", phx_value_id: question.id %></span>
+          <span><%= link "Down Vote", to: "#", phx_click: "down_vote", phx_value_id: question.id %></span>
+          <span><%= live_patch "Answer", to: Routes.question_index_path(@socket, :answer, question) %></span>
         </td>
       </tr>
     <% end %>
