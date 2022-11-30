@@ -3,10 +3,10 @@ import Config
 # Configure your database
 config :pento, Pento.Repo,
   username: "postgres",
-  password: "postgrespw",
+  password: "postgres",
   hostname: "localhost",
   database: "pento_dev",
-  port: 49153,
+  port: 5432,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
